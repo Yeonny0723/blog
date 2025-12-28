@@ -8,7 +8,8 @@ const config: GatsbyConfig = {
       summary: `who lives and works in San Francisco building useful things.`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    siteUrl: `https://yeonny0723.github.io`,
+    pathPrefix: `/blog`,
     social: {
       twitter: `kylemathews`,
     },
@@ -130,7 +131,7 @@ const config: GatsbyConfig = {
       options: {
         name: `Gatsby Starter Blog`,
         short_name: `Gatsby`,
-        start_url: `/`,
+        start_url: `/blog/`,
         background_color: `#ffffff`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
