@@ -8,8 +8,24 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-const Seo = ({ description, title, children }) => {
-  const { site } = useStaticQuery(
+interface SeoProps {
+  description?: string
+  title: string
+  children?: React.ReactNode
+}
+
+const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
+  const { site } = useStaticQuery<{
+    site: {
+      siteMetadata: {
+        title: string
+        description: string
+        social?: {
+          twitter?: string
+        }
+      }
+    }
+  }>(
     graphql`
       query {
         site {
@@ -48,3 +64,4 @@ const Seo = ({ description, title, children }) => {
 }
 
 export default Seo
+

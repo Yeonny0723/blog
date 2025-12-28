@@ -1,7 +1,14 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, PageProps } from "gatsby"
+import ThemeToggle from "./ThemeToggle"
 
-const Layout = ({ location, title, children }) => {
+interface LayoutProps {
+  location: PageProps["location"]
+  title: string
+  children: React.ReactNode
+}
+
+const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
   let header
@@ -22,7 +29,12 @@ const Layout = ({ location, title, children }) => {
 
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <header className="global-header">{header}</header>
+      <header className="global-header">
+        <div className="header-content">
+          {header}
+          <ThemeToggle />
+        </div>
+      </header>
       <main>{children}</main>
       <footer>
         © {new Date().getFullYear()}, Built with
@@ -34,3 +46,4 @@ const Layout = ({ location, title, children }) => {
 }
 
 export default Layout
+

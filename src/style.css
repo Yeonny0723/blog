@@ -58,6 +58,18 @@
   --color-heading: #1a202c;
   --color-heading-black: black;
   --color-accent: #d1dce5;
+  --color-background: #ffffff;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --color-primary: #4a9eff;
+  --color-text: #e2e8f0;
+  --color-text-light: #cbd5e0;
+  --color-heading: #f7fafc;
+  --color-heading-black: #ffffff;
+  --color-accent: #2d3748;
+  --color-background: #1a202c;
 }
 
 /* HTML elements */
@@ -79,6 +91,8 @@ body {
   font-family: var(--font-body);
   font-size: var(--fontSize-1);
   color: var(--color-text);
+  background-color: var(--color-background);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 footer {
@@ -250,6 +264,38 @@ a:focus {
 
 .global-header {
   margin-bottom: var(--spacing-12);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  border-color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.theme-toggle:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .main-heading {

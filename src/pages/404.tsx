@@ -1,10 +1,18 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, PageProps, HeadFC } from "gatsby"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Layout from "../components/Layout"
+import Seo from "../components/Seo"
 
-const NotFoundPage = ({ data, location }) => {
+interface PageData {
+  site: {
+    siteMetadata: {
+      title: string
+    }
+  }
+}
+
+const NotFoundPage: React.FC<PageProps<PageData>> = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
   return (
@@ -15,7 +23,7 @@ const NotFoundPage = ({ data, location }) => {
   )
 }
 
-export const Head = () => <Seo title="404: Not Found" />
+export const Head: HeadFC<PageData> = () => <Seo title="404: Not Found" />
 
 export default NotFoundPage
 
@@ -28,3 +36,4 @@ export const pageQuery = graphql`
     }
   }
 `
+

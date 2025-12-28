@@ -1,11 +1,47 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, PageProps, HeadFC } from "gatsby"
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Bio from "../components/Bio"
+import Layout from "../components/Layout"
+import Seo from "../components/Seo"
+import Toc from "../components/Toc"
 
-const BlogPostTemplate = ({
+interface PageData {
+  previous?: {
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  }
+  next?: {
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  }
+  site: {
+    siteMetadata?: {
+      title?: string
+    }
+  }
+  markdownRemark: {
+    id: string
+    excerpt?: string
+    html: string
+    tableOfContents?: string
+    frontmatter: {
+      title: string
+      date?: string
+      description?: string
+    }
+  }
+}
+
+const BlogPostTemplate: React.FC<PageProps<PageData>> = ({
   data: { previous, next, site, markdownRemark: post },
   location,
 }) => {
@@ -22,6 +58,7 @@ const BlogPostTemplate = ({
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
+        <Toc toc={post.tableOfContents} />
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -61,7 +98,7 @@ const BlogPostTemplate = ({
   )
 }
 
-export const Head = ({ data: { markdownRemark: post } }) => {
+export const Head: HeadFC<PageData> = ({ data: { markdownRemark: post } }) => {
   return (
     <Seo
       title={post.frontmatter.title}
@@ -87,6 +124,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      tableOfContents
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")

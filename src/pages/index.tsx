@@ -1,11 +1,32 @@
 import * as React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, PageProps, HeadFC } from "gatsby"
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import Bio from "../components/Bio"
+import Layout from "../components/Layout"
+import Seo from "../components/Seo"
 
-const BlogIndex = ({ data, location }) => {
+interface PageData {
+  site: {
+    siteMetadata?: {
+      title?: string
+    }
+  }
+  allMarkdownRemark: {
+    nodes: Array<{
+      excerpt?: string
+      fields: {
+        slug: string
+      }
+      frontmatter: {
+        date?: string
+        title?: string
+        description?: string
+      }
+    }>
+  }
+}
+
+const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
@@ -16,7 +37,7 @@ const BlogIndex = ({ data, location }) => {
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
+          gatsby-config.ts).
         </p>
       </Layout>
     )
@@ -47,7 +68,7 @@ const BlogIndex = ({ data, location }) => {
                 <section>
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt,
+                      __html: post.frontmatter.description || post.excerpt || "",
                     }}
                     itemProp="description"
                   />
@@ -68,7 +89,7 @@ export default BlogIndex
  *
  * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
  */
-export const Head = () => <Seo title="All posts" />
+export const Head: HeadFC<PageData> = () => <Seo title="All posts" />
 
 export const pageQuery = graphql`
   {
@@ -92,3 +113,4 @@ export const pageQuery = graphql`
     }
   }
 `
+
