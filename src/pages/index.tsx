@@ -21,6 +21,7 @@ interface PageData {
         date?: string
         title?: string
         description?: string
+        tags?: string[]
       }
     }>
   }
@@ -33,7 +34,9 @@ const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <Bio />
+        <div className="home-hero">
+          <Bio />
+        </div>
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -45,39 +48,87 @@ const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Bio />
-      <ol style={{ listStyle: `none` }}>
-        {posts.map(post => {
-          const title = post.frontmatter.title || post.fields.slug
+      <div className="home-hero">
+        <h1 className="hero-title">{siteTitle}</h1>
+        <Bio />
+      </div>
 
-          return (
-            <li key={post.fields.slug}>
-              <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              >
-                <header>
-                  <h2>
-                    <Link to={post.fields.slug} itemProp="url">
-                      <span itemProp="headline">{title}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.frontmatter.date}</small>
-                </header>
-                <section>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: post.frontmatter.description || post.excerpt || "",
-                    }}
-                    itemProp="description"
-                  />
-                </section>
-              </article>
-            </li>
-          )
-        })}
-      </ol>
+      <section className="latest-posts">
+        <h2 className="section-title">새로운 소식</h2>
+        <p className="section-subtitle">최신 포스트를 살펴보세요</p>
+        <ul className="post-list">
+          {posts.map(post => {
+            const title = post.frontmatter.title || post.fields.slug
+            const tags = post.frontmatter.tags || []
+
+            // 태그를 이모지로 매핑
+            const tagEmojiMap: Record<string, string> = {
+              개발: "🪜",
+              에세이: "🐰",
+              리뷰: "💼",
+              튜토리얼: "📚",
+              gatsby: "⚛️",
+              react: "⚛️",
+              typescript: "📘",
+            }
+
+            const firstTag = tags.length > 0 ? tags[0] : ""
+            const tagEmoji =
+              firstTag && tagEmojiMap[firstTag]
+                ? tagEmojiMap[firstTag]
+                : tags.length > 0
+                ? "📝"
+                : "📝"
+
+            return (
+              <li key={post.fields.slug}>
+                <article
+                  className="post-card"
+                  itemScope
+                  itemType="http://schema.org/Article"
+                >
+                  <Link
+                    to={post.fields.slug}
+                    className="post-link"
+                    itemProp="url"
+                  >
+                    <div className="post-content">
+                      {firstTag && (
+                        <span className="post-category">
+                          {firstTag}
+                          {tagEmoji}
+                        </span>
+                      )}
+                      <h3 className="post-title" itemProp="headline">
+                        {title}
+                      </h3>
+                      <p
+                        className="post-description"
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            post.frontmatter.description || post.excerpt || "",
+                        }}
+                        itemProp="description"
+                      />
+                      <time
+                        className="post-date"
+                        dateTime={post.frontmatter.date || ""}
+                      >
+                        {post.frontmatter.date}
+                      </time>
+                    </div>
+                  </Link>
+                </article>
+              </li>
+            )
+          })}
+        </ul>
+        {posts.length > 5 && (
+          <Link to="/" className="more-link">
+            더 살펴보기
+          </Link>
+        )}
+      </section>
     </Layout>
   )
 }
@@ -105,12 +156,12 @@ export const pageQuery = graphql`
           slug
         }
         frontmatter {
-          date(formatString: "MMMM DD, YYYY")
+          date(formatString: "YYYY-MM-DD")
           title
           description
+          tags
         }
       }
     }
   }
 `
-

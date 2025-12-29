@@ -2,7 +2,7 @@ import type { GatsbyConfig } from "gatsby"
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `요니의 개발 블로그`,
     author: {
       name: `Kyle Mathews`,
       summary: `who lives and works in San Francisco building useful things.`,
@@ -121,7 +121,7 @@ const config: GatsbyConfig = {
               }
             }`,
             output: "/rss.xml",
-            title: "Gatsby Starter Blog RSS Feed",
+            title: "요니의 개발 블로그 RSS Feed",
           },
         ],
       },
@@ -129,8 +129,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `Gatsby`,
+        name: `요니의 개발 블로그`,
+        short_name: `Yeonny`,
         start_url: `/blog/`,
         background_color: `#ffffff`,
         // This will impact how browsers show your PWA/website

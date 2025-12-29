@@ -44,30 +44,16 @@ const Bio: React.FC = () => {
 
   return (
     <div className="bio">
-      <StaticImage
-        className="bio-avatar"
-        layout="fixed"
-        formats={["auto", "webp", "avif"]}
-        src="../images/profile-pic.png"
-        width={50}
-        height={50}
-        quality={95}
-        alt="Profile picture"
-      />
       {author?.name && (
-        <p>
-          Written by <strong>{author.name}</strong> {author?.summary || null}
-          {` `}
-          {social?.twitter && (
-            <a href={`https://twitter.com/${social.twitter}`}>
-              You should follow them on Twitter
-            </a>
-          )}
-        </p>
+        <>
+          <p className="bio-intro">
+            <strong>{author.name}</strong>
+          </p>
+          {author?.summary && <p className="bio-summary">{author.summary}</p>}
+        </>
       )}
     </div>
   )
 }
 
 export default Bio
-
