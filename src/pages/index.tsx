@@ -61,15 +61,11 @@ const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
             const title = post.frontmatter.title || post.fields.slug
             const tags = post.frontmatter.tags || []
 
-            // 태그를 이모지로 매핑
             const tagEmojiMap: Record<string, string> = {
-              개발: "🪜",
+              개발: "☀️",
               에세이: "🐰",
-              리뷰: "💼",
+              리뷰: "🎸",
               튜토리얼: "📚",
-              gatsby: "⚛️",
-              react: "⚛️",
-              typescript: "📘",
             }
 
             const firstTag = tags.length > 0 ? tags[0] : ""
