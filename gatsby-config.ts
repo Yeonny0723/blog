@@ -75,7 +75,41 @@ const config: GatsbyConfig = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+        }: {
+          allSitePage: { nodes: Array<{ path: string }> }
+        }) => {
+          return allPages.map(page => {
+            return { ...page }
+          })
+        },
+        serialize: ({ path }: { path: string }) => {
+          return {
+            url: path,
+            changefreq: `daily`,
+            priority: 0.7,
+          }
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-feed`,
       options: {
