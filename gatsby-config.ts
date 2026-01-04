@@ -101,14 +101,13 @@ const config: GatsbyConfig = {
             return { ...page }
           })
         },
-        serialize: (
-          { path }: { path: string },
-          { site }: { site: { siteMetadata: { siteUrl: string } } }
-        ) => ({
-          url: site.siteMetadata.siteUrl + path,
-          changefreq: `daily`,
-          priority: 0.7,
-        }),
+        serialize: ({ path }: { path: string }) => {
+          return {
+            url: path,
+            changefreq: `daily`,
+            priority: 0.7,
+          }
+        },
       },
     },
     {
