@@ -1,14 +1,14 @@
 import type { GatsbyConfig } from "gatsby"
 
 const config: GatsbyConfig = {
+  pathPrefix: `/blog`,
   siteMetadata: {
     title: `Yeonny's blog`,
     author: {
       name: `Yeonny`,
       summary: `'마땅히 살아야 할 삶에 대하여'`,
     },
-    siteUrl: `https://yeonny0723.github.io/blog`,
-    pathPrefix: `/blog`,
+    siteUrl: `https://yeonny0723.github.io`,
     social: {
       github: `https://github.com/yeonny0723`,
     },
@@ -101,13 +101,14 @@ const config: GatsbyConfig = {
             return { ...page }
           })
         },
-        serialize: ({ path }: { path: string }) => {
-          return {
-            url: path,
-            changefreq: `daily`,
-            priority: 0.7,
-          }
-        },
+        serialize: (
+          { path }: { path: string },
+          { site }: { site: { siteMetadata: { siteUrl: string } } }
+        ) => ({
+          url: site.siteMetadata.siteUrl + path,
+          changefreq: `daily`,
+          priority: 0.7,
+        }),
       },
     },
     {
