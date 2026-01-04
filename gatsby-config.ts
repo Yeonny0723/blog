@@ -2,16 +2,15 @@ import type { GatsbyConfig } from "gatsby"
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `요니의 개발 블로그`,
+    title: `Yeonny's blog`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Yeonny`,
+      summary: `'마땅히 살아야 할 삶에 대하여'`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://yeonny0723.github.io`,
+    siteUrl: `https://yeonny0723.github.io/blog`,
     pathPrefix: `/blog`,
     social: {
-      twitter: `kylemathews`,
+      github: `https://github.com/yeonny0723`,
     },
   },
   plugins: [
@@ -121,7 +120,7 @@ const config: GatsbyConfig = {
               }
             }`,
             output: "/rss.xml",
-            title: "요니의 개발 블로그 RSS Feed",
+            title: "Yeonny's Blog RSS Feed",
           },
         ],
       },
@@ -129,7 +128,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `요니의 개발 블로그`,
+        name: `Yeonny's Blog`,
         short_name: `Yeonny`,
         start_url: `/blog/`,
         background_color: `#ffffff`,

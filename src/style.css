@@ -275,11 +275,29 @@ a:focus {
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
   font-weight: var(--fontWeight-bold);
   font-family: var(--font-heading);
   font-size: var(--fontSize-2);
   text-decoration: none;
   color: var(--color-heading);
+  transition: opacity 0.2s ease;
+}
+
+.nav-logo:hover {
+  opacity: 0.8;
+}
+
+.nav-logo-image {
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  font-weight: var(--fontWeight-bold);
 }
 
 .nav-links {
@@ -372,23 +390,40 @@ a:focus {
 }
 
 .bio {
+  margin-bottom: var(--spacing-16);
+}
+
+.bio-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6);
+  background-color: var(--color-accent);
+  border-radius: var(--spacing-2);
+  transition: background-color 0.3s ease;
+}
+
+[data-theme="dark"] .bio-content {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.bio-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: var(--spacing-16);
-  text-align: center;
+  gap: var(--spacing-2);
+  flex: 1;
 }
 
 .bio p {
-  margin-bottom: var(--spacing-2);
-  max-width: 600px;
+  margin-bottom: var(--spacing-0);
   line-height: var(--lineHeight-relaxed);
 }
 
 .bio-intro {
   font-size: var(--fontSize-2);
   font-weight: var(--fontWeight-bold);
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-0);
+  color: var(--color-heading);
 }
 
 .bio-intro strong {
@@ -398,13 +433,38 @@ a:focus {
 .bio-summary {
   color: var(--color-text-light);
   font-size: var(--fontSize-1);
+  margin-bottom: var(--spacing-0);
+  font-style: italic;
 }
 
 .bio-avatar {
-  margin-right: var(--spacing-4);
-  margin-bottom: var(--spacing-0);
-  min-width: 50px;
-  border-radius: 100%;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.bio-github {
+  color: #8b5cf6;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: var(--fontSize-1);
+  font-weight: var(--fontWeight-bold);
+  transition: color 0.2s ease;
+  display: inline-block;
+  margin-top: var(--spacing-1);
+}
+
+.bio-github:hover {
+  color: #7c3aed;
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .bio-github {
+  color: #a78bfa;
+}
+
+[data-theme="dark"] .bio-github:hover {
+  color: #c4b5fd;
 }
 
 .blog-post header h1 {

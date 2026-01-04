@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link, PageProps } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 import ThemeToggle from "./ThemeToggle"
 
 interface LayoutProps {
@@ -17,12 +18,19 @@ const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
       <header className="global-header">
         <nav className="main-nav">
           <Link to="/" className="nav-logo">
-            {title}
+            <StaticImage
+              className="nav-logo-image"
+              layout="fixed"
+              formats={["auto", "webp", "avif"]}
+              src="../images/profile-pic.png"
+              width={40}
+              height={40}
+              quality={95}
+              alt="Blog logo"
+            />
+            <span className="nav-logo-text">{title}</span>
           </Link>
           <div className="nav-links">
-            <Link to="/" className={isRootPath ? "active" : ""}>
-              Posts
-            </Link>
             {/* 추가 메뉴 항목을 여기에 추가할 수 있습니다 */}
             <ThemeToggle />
           </div>

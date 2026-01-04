@@ -19,6 +19,7 @@ const Bio: React.FC = () => {
         }
         social?: {
           twitter?: string
+          github?: string
         }
       }
     }
@@ -32,6 +33,7 @@ const Bio: React.FC = () => {
           }
           social {
             twitter
+            github
           }
         }
       }
@@ -44,14 +46,38 @@ const Bio: React.FC = () => {
 
   return (
     <div className="bio">
-      {author?.name && (
-        <>
-          <p className="bio-intro">
-            <strong>{author.name}</strong>
-          </p>
-          {author?.summary && <p className="bio-summary">{author.summary}</p>}
-        </>
-      )}
+      <div className="bio-content">
+        <StaticImage
+          className="bio-avatar"
+          layout="fixed"
+          formats={["auto", "webp", "avif"]}
+          src="../images/profile-pic.png"
+          width={80}
+          height={80}
+          quality={95}
+          alt="Profile picture"
+        />
+        <div className="bio-text">
+          {author?.name && (
+            <p className="bio-intro">
+              <strong>{author.name}</strong>
+            </p>
+          )}
+          {author?.summary && (
+            <p className="bio-summary">{author.summary}</p>
+          )}
+          {social?.github && (
+            <a
+              href={social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bio-github"
+            >
+              GitHub
+            </a>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

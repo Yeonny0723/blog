@@ -49,13 +49,10 @@ const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <div className="home-hero">
-        <h1 className="hero-title">{siteTitle}</h1>
         <Bio />
       </div>
 
       <section className="latest-posts">
-        <h2 className="section-title">새로운 소식</h2>
-        <p className="section-subtitle">최신 포스트를 살펴보세요</p>
         <ul className="post-list">
           {posts.map(post => {
             const title = post.frontmatter.title || post.fields.slug
