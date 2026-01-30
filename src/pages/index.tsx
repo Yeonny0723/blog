@@ -1,9 +1,13 @@
 import * as React from "react"
-import { Link, graphql, PageProps, HeadFC } from "gatsby"
+import { graphql, PageProps, HeadFC } from "gatsby"
 
-import Bio from "../components/Bio"
+import ProfileCard from "../components/ProfileCard"
+import CategoryFilter from "../components/CategoryFilter"
+import PostCard from "../components/PostCard"
+import Sidebar from "../components/Sidebar"
 import Layout from "../components/Layout"
 import Seo from "../components/Seo"
+import usePostFilter from "../hooks/usePostFilter"
 
 interface PageData {
   site: {
@@ -22,6 +26,7 @@ interface PageData {
         title?: string
         description?: string
         tags?: string[]
+        featured?: boolean
       }
     }>
   }
@@ -30,12 +35,15 @@ interface PageData {
 const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
+  const [activeCategory, setActiveCategory] = React.useState("전체")
+
+  const filteredPosts = usePostFilter(posts, activeCategory)
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
         <div className="home-hero">
-          <Bio />
+          <ProfileCard />
         </div>
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
@@ -49,79 +57,44 @@ const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <div className="home-hero">
-        <Bio />
+        <ProfileCard />
       </div>
 
-      <section className="latest-posts">
-        <ul className="post-list">
-          {posts.map(post => {
-            const title = post.frontmatter.title || post.fields.slug
-            const tags = post.frontmatter.tags || []
+      <div className="home-layout">
+        <div className="home-main-content">
+          <CategoryFilter
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
+          />
 
-            const tagEmojiMap: Record<string, string> = {
-              개발: "☀️",
-              에세이: "🐰",
-              리뷰: "🎸",
-              튜토리얼: "📚",
-            }
+          <section className="latest-posts">
+            <ul className="post-list">
+              {filteredPosts.map(post => {
+                const title = post.frontmatter.title || post.fields.slug
+                const tags = post.frontmatter.tags || []
 
-            const firstTag = tags.length > 0 ? tags[0] : ""
-            const tagEmoji =
-              firstTag && tagEmojiMap[firstTag]
-                ? tagEmojiMap[firstTag]
-                : tags.length > 0
-                ? "📝"
-                : "📝"
+                return (
+                  <PostCard
+                    key={post.fields.slug}
+                    slug={post.fields.slug}
+                    title={title}
+                    date={post.frontmatter.date || ""}
+                    description={post.frontmatter.description}
+                    excerpt={post.excerpt}
+                    tags={tags}
+                  />
+                )
+              })}
+            </ul>
+          </section>
+        </div>
 
-            return (
-              <li key={post.fields.slug}>
-                <article
-                  className="post-card"
-                  itemScope
-                  itemType="http://schema.org/Article"
-                >
-                  <Link
-                    to={post.fields.slug}
-                    className="post-link"
-                    itemProp="url"
-                  >
-                    <div className="post-content">
-                      {firstTag && (
-                        <span className="post-category">
-                          {firstTag}
-                          {tagEmoji}
-                        </span>
-                      )}
-                      <h3 className="post-title" itemProp="headline">
-                        {title}
-                      </h3>
-                      <p
-                        className="post-description"
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            post.frontmatter.description || post.excerpt || "",
-                        }}
-                        itemProp="description"
-                      />
-                      <time
-                        className="post-date"
-                        dateTime={post.frontmatter.date || ""}
-                      >
-                        {post.frontmatter.date}
-                      </time>
-                    </div>
-                  </Link>
-                </article>
-              </li>
-            )
-          })}
-        </ul>
-        {posts.length > 5 && (
-          <Link to="/" className="more-link">
-            더 살펴보기
-          </Link>
-        )}
-      </section>
+        <Sidebar
+          posts={posts}
+          activeCategory={activeCategory}
+          onCategoryClick={setActiveCategory}
+        />
+      </div>
     </Layout>
   )
 }
@@ -153,6 +126,7 @@ export const pageQuery = graphql`
           title
           description
           tags
+          featured
         }
       }
     }

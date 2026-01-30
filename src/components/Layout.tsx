@@ -2,6 +2,7 @@ import * as React from "react"
 import { Link, PageProps } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import ThemeToggle from "./ThemeToggle"
+import Navigation from "./Navigation"
 
 interface LayoutProps {
   location: PageProps["location"]
@@ -16,7 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">
-        <nav className="main-nav">
+        <div className="header-top">
           <Link to="/" className="nav-logo">
             <StaticImage
               className="nav-logo-image"
@@ -30,11 +31,9 @@ const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
             />
             <span className="nav-logo-text">{title}</span>
           </Link>
-          <div className="nav-links">
-            {/* 추가 메뉴 항목을 여기에 추가할 수 있습니다 */}
-            <ThemeToggle />
-          </div>
-        </nav>
+          <ThemeToggle />
+        </div>
+        <Navigation currentPath={location.pathname} />
       </header>
       <main>{children}</main>
       <footer>

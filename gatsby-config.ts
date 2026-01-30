@@ -5,12 +5,15 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: `Yeonny's blog`,
     author: {
-      name: `Yeonny`,
-      summary: `Do the right thing in the right way!`,
+      name: `김주연`,
+      title: `Frontend Developer`,
+      summary: `Do the right thing in a right way!`,
     },
     siteUrl: `https://yeonny0723.github.io`,
     social: {
       github: `https://github.com/yeonny0723`,
+      linkedin: `https://www.linkedin.com/in/juyeon-kim-6a227a207/`,
+      tistory: `https://yeonny0723.tistory.com`,
     },
   },
   plugins: [

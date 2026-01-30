@@ -95,10 +95,14 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
 
       type Author {
         name: String
+        title: String
         summary: String
       }
 
       type Social {
+        github: String
+        linkedin: String
+        tistory: String
         twitter: String
       }
 
@@ -112,6 +116,7 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
         description: String
         date: Date @dateformat
         tags: [String]
+        featured: Boolean
       }
 
       type Fields {
