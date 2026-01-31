@@ -6,7 +6,7 @@
  */
 
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, withPrefix } from "gatsby"
 
 interface SeoProps {
   description?: string
@@ -47,6 +47,11 @@ const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
   return (
     <>
       <title>{defaultTitle ? `${title} | ${defaultTitle}` : title}</title>
+      <link rel="icon" href={withPrefix("/icons/icon-48x48.png")} />
+      <link
+        rel="apple-touch-icon"
+        href={withPrefix("/icons/icon-192x192.png")}
+      />
       <meta name="description" content={metaDescription} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={metaDescription} />
@@ -64,4 +69,3 @@ const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
 }
 
 export default Seo
-

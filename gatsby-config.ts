@@ -60,6 +60,14 @@ const config: GatsbyConfig = {
       options: {
         plugins: [
           {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              offsetY: `80`,
+              icon: false,
+              className: `anchor-header`,
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,

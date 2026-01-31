@@ -9,8 +9,7 @@ description: "비즈니스가 보는 Vibe 코딩"
 
 오전 반차를 쓰고 [Hashed Vibe Labs Seoul](https://luma.com/x4yml1a1)에 다녀왔고, 오랜만에 느끼는 가슴 뜀과 여운에 다시 PC를 켰습니다 ㅎㅎ
 
-<img src="./resources/start.png" alt="행사 시작" width="400"  />
-<br/>
+![행사 시작](./resources/start.png)
 
 행사장에는 타 개발 커뮤니티 나잇에서 봤던 분들, 같은 사이드 프로젝트 기획자분 등 눈빛 초롱초롱한 사람들로 가득했습니다.
 
@@ -77,8 +76,7 @@ e.g. 연사 내 "아웃바운드 세일즈 자동 루프" 예시
 - 인터뷰 트랜스크립트 요약
 - 인사이트 도출 → 다음 가설 생성
 
-<img src="./resources/agentic-pmf.jpg" alt="agentic pmf" width="400"  />
-<br/>
+![agentic pmf](./resources/agentic-pmf.jpg)
 
 개별 모델이 아니라, 일련의 과정이 자동으로 연결되도록, 병렬 에이전트 협업을 구현함.
 결국 싱글 에이전트보다 멀티 에이전트 자율 협업 구조 설계 능력이 핵심 역량이 된다.
@@ -154,7 +152,7 @@ e.g.
 여기에 더해
 brand + trust + network 도 중요해진다.
 
-<img src="./resources/network.jpg" alc="network" width="400">
+![network](./resources/network.jpg)
 
 #### Domain → Product 변환하는 개인 경쟁력
 
@@ -185,8 +183,7 @@ brand + trust + network 도 중요해진다.
 
 내 생각을 거스르는 시대의 흐름을 얼마나 열린 마음으로 받아들이느냐가, 결국 팀과 제품이 스케일업할 기회를 열고 닫는다는 걸 느낀 하루였습니다. 왜 그런 생각에 도달했는지 돌아보면, 빠르게 움직이는 플레이어들이 이미 그 답을 보여주고 있었기 때문인 것 같아요. 그래서 비즈니스와 세상의 흐름을 이해하는 플레이어로 계속 남아 있어야겠다는 생각으로 하루를 마무리하려합니다. 밋업을 준비해주신 관계자분들, 좋은 인사이트를 공유해주신 연사자분들께 감사드립니다.
 
-<img src="./resources/be-a-s.png" alt="beas" height="400">
-<br/>
+![beas](./resources/be-a-s.png)
 
 저는 기존 언어교환의 지루한 스몰톡을 넘어서 더 몰입감 있고, 실제로 효과적인 연습을 할 수 있게 돕는 게임형 언어 교환 서비스 BeAS를 만들고 있어요.
 빠른 시간 내 테스트 할 것이고, 지켜봐주세요. 씨유쑨!
