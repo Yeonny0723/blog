@@ -1121,6 +1121,41 @@ footer p {
   text-decoration: underline;
 }
 
+/* Table of Contents */
+.table-of-contents {
+  margin-bottom: var(--spacing-8);
+  padding: var(--spacing-4);
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+}
+
+[data-theme="dark"] .table-of-contents {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-of-contents ul,
+.table-of-contents ol {
+  list-style-position: outside;
+  padding-left: var(--spacing-6);
+  margin-left: var(--spacing-0);
+}
+
+.table-of-contents li {
+  padding-left: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.table-of-contents a {
+  text-decoration: none;
+  color: var(--color-text);
+  transition: color 0.2s ease;
+}
+
+.table-of-contents a:hover {
+  color: var(--color-primary);
+}
+
 /* Media queries */
 
 /* Responsive Design */
@@ -1240,6 +1275,13 @@ footer p {
   ul,
   ol {
     list-style-position: inside;
+  }
+
+  /* Table of Contents should keep outside positioning on mobile */
+  .table-of-contents ul,
+  .table-of-contents ol {
+    list-style-position: outside;
+    padding-left: var(--spacing-6);
   }
 
   .profile-card {

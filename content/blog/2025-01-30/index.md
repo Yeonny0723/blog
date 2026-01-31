@@ -9,7 +9,7 @@ description: "비즈니스가 보는 Vibe 코딩"
 
 오전 반차를 쓰고 [Hashed Vibe Labs Seoul](https://luma.com/x4yml1a1)에 다녀왔고, 오랜만에 느끼는 가슴 뜀과 여운에 다시 PC를 켰습니다 ㅎㅎ
 
-<img src="./resources/행사시작.png" alt="행사 시작" width="400"  />
+<img src="./resources/start.png" alt="행사 시작" width="400"  />
 
 행사장에는 타 개발 커뮤니티 나잇에서 봤던 분들, 같은 사이드 프로젝트 기획자분 등 눈빛 초롱초롱한 사람들로 가득했습니다.
 
@@ -186,4 +186,4 @@ brand + trust + network 도 중요해진다.
 <img src="./resources/be-a-s.png" alt="beas" height="400">
 
 저는 기존 언어교환의 지루한 스몰톡을 넘어서 더 몰입감 있고, 실제로 효과적인 연습을 할 수 있게 돕는 게임형 언어 교환 서비스 BeAS를 만들고 있어요.
-빠른 시간 내 테스트 할 것이고, 지켜봐주세요.
+빠른 시간 내 테스트 할 것이고, 지켜봐주세요. 씨유쑨!
