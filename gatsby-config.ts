@@ -6,7 +6,7 @@ const config: GatsbyConfig = {
     title: `Yeonny's blog`,
     author: {
       name: `김주연`,
-      title: `Frontend Developer`,
+      title: `Software Engineer`,
       summary: `Do the right thing in a right way!`,
     },
     siteUrl: `https://yeonny0723.github.io`,
