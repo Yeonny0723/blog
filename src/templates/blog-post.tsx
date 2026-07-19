@@ -37,6 +37,8 @@ interface PageData {
       title: string
       date?: string
       description?: string
+      lang?: string
+      translation?: string
     }
   }
 }
@@ -57,6 +59,15 @@ const BlogPostTemplate: React.FC<PageProps<PageData>> = ({
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
+          {post.frontmatter.translation && (
+            <p className="post-translation-link">
+              <Link to={post.frontmatter.translation}>
+                {post.frontmatter.lang === "en"
+                  ? "한국어로 읽기"
+                  : "Read in English"}
+              </Link>
+            </p>
+          )}
         </header>
         <Toc toc={post.tableOfContents} />
         <section
@@ -129,6 +140,8 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        lang
+        translation
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

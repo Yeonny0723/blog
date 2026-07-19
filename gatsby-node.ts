@@ -21,6 +21,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
           fields {
             slug
           }
+          frontmatter {
+            lang
+          }
         }
       }
     }
@@ -40,10 +43,19 @@ export const createPages: GatsbyNode["createPages"] = async ({
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.ts)
   // `context` is available in the template as a prop and as a variable in GraphQL
 
-  if (posts.length > 0) {
-    posts.forEach((post: any, index: number) => {
-      const previousPostId = index === 0 ? null : posts[index - 1].id
-      const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
+  // Previous/next navigation stays within a language, so an English post never
+  // links out to a Korean one.
+  const byLang: Record<string, any[]> = {}
+  posts.forEach((post: any) => {
+    const lang = post.frontmatter?.lang || `ko`
+    ;(byLang[lang] ||= []).push(post)
+  })
+
+  Object.values(byLang).forEach(langPosts => {
+    langPosts.forEach((post: any, index: number) => {
+      const previousPostId = index === 0 ? null : langPosts[index - 1].id
+      const nextPostId =
+        index === langPosts.length - 1 ? null : langPosts[index + 1].id
 
       createPage({
         path: post.fields.slug,
@@ -55,7 +67,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
         },
       })
     })
-  }
+  })
 }
 
 export const onCreateNode: GatsbyNode["onCreateNode"] = ({
@@ -117,6 +129,8 @@ export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] 
         date: Date @dateformat
         tags: [String]
         featured: Boolean
+        lang: String
+        translation: String
       }
 
       type Fields {

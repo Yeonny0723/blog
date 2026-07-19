@@ -3,6 +3,7 @@ title: "AI는 디자인 시스템을 모른다: 사내 디자인시스템 MCP �
 date: "2026-03-01"
 tags: ["ai", "mcp", "design-system", "frontend"]
 description: "기존 디자인 시스템을 MCP 서버로 연결해, UI 구현의 탐색 비용과 품질 리스크를 줄인 과정."
+translation: "/2026-02-22/en/"
 ---
 
 # AI는 디자인 시스템을 모른다: 사내 FDS를 MCP 서버로 연결한 이유
