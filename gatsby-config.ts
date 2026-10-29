@@ -63,8 +63,9 @@ const config: GatsbyConfig = {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               offsetY: `80`,
-              icon: false,
-              className: `anchor-header`,
+              icon: `<span class="icon icon-link"></span>`,
+              className: `heading-anchor`,
+              isIconAfterHeader: true,
             },
           },
           {

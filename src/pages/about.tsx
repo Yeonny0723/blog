@@ -17,7 +17,7 @@ const AboutPage: React.FC<PageProps<PageData>> = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <article className="about-page">
+      <article className="post post-content about-page">
         <h1>소개</h1>
 
         <section className="about-section">

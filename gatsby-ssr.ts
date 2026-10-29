@@ -12,7 +12,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({
   setHtmlAttributes,
   setHeadComponents,
 }) => {
-  setHtmlAttributes({ lang: `en` })
+  setHtmlAttributes({ lang: `ko` })
 
   // Set initial theme to prevent flash of wrong theme
   setHeadComponents([

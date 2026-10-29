@@ -4,25 +4,15 @@ import { Link, graphql, PageProps, HeadFC } from "gatsby"
 import Bio from "../components/Bio"
 import Layout from "../components/Layout"
 import Seo from "../components/Seo"
-import Toc from "../components/Toc"
+
+interface NavPost {
+  fields: { slug: string }
+  frontmatter: { title: string; date?: string }
+}
 
 interface PageData {
-  previous?: {
-    fields: {
-      slug: string
-    }
-    frontmatter: {
-      title: string
-    }
-  }
-  next?: {
-    fields: {
-      slug: string
-    }
-    frontmatter: {
-      title: string
-    }
-  }
+  previous?: NavPost
+  next?: NavPost
   site: {
     siteMetadata?: {
       title?: string
@@ -37,69 +27,78 @@ interface PageData {
       title: string
       date?: string
       description?: string
+      tags?: string[]
       lang?: string
       translation?: string
     }
   }
 }
 
+const withDate = (post: NavPost) =>
+  post.frontmatter.date
+    ? `${post.frontmatter.date} ${post.frontmatter.title}`
+    : post.frontmatter.title
+
 const BlogPostTemplate: React.FC<PageProps<PageData>> = ({
   data: { previous, next, site, markdownRemark: post },
   location,
 }) => {
   const siteTitle = site.siteMetadata?.title || `Title`
+  const { title, date, tags, lang, translation } = post.frontmatter
 
   return (
     <Layout location={location} title={siteTitle}>
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
-        <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
-          {post.frontmatter.translation && (
+      <article className="post" itemScope itemType="http://schema.org/Article">
+        <header className="post-header">
+          <h1 className="post-title" itemProp="headline">
+            {date ? `${date} ${title}` : title}
+          </h1>
+          <div className="post-meta">
+            {date && <span>{date}</span>}
+            {tags && tags.length > 0 && (
+              <ul className="post-tags">
+                {tags.map(tag => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+          {translation && (
             <p className="post-translation-link">
-              <Link to={post.frontmatter.translation}>
-                {post.frontmatter.lang === "en"
-                  ? "한국어로 읽기"
-                  : "Read in English"}
+              <Link to={translation}>
+                {lang === "en" ? "한국어로 읽기" : "Read in English"}
               </Link>
             </p>
           )}
         </header>
-        <Toc toc={post.tableOfContents} />
+        {post.tableOfContents && (
+          <nav
+            className="toc"
+            dangerouslySetInnerHTML={{ __html: post.tableOfContents }}
+          />
+        )}
         <section
+          className="post-content"
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
         />
-        <hr />
-        <footer>
+        <footer className="post-footer">
           <Bio />
         </footer>
       </article>
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
+      <nav className="post-nav">
+        <ul>
           <li>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
+                ← {withDate(previous)}
               </Link>
             )}
           </li>
           <li>
             {next && (
               <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+                {withDate(next)} →
               </Link>
             )}
           </li>
@@ -138,8 +137,9 @@ export const pageQuery = graphql`
       tableOfContents
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "YYYY-MM-DD")
         description
+        tags
         lang
         translation
       }
@@ -150,6 +150,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        date(formatString: "YYYY-MM-DD")
       }
     }
     next: markdownRemark(id: { eq: $nextPostId }) {
@@ -158,6 +159,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        date(formatString: "YYYY-MM-DD")
       }
     }
   }

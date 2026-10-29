@@ -23,6 +23,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
           }
           frontmatter {
             lang
+            title
           }
         }
       }
@@ -37,7 +38,10 @@ export const createPages: GatsbyNode["createPages"] = async ({
     return
   }
 
-  const posts = (result.data as any).allMarkdownRemark.nodes
+  // Skip empty drafts (no frontmatter title)
+  const posts = (result.data as any).allMarkdownRemark.nodes.filter(
+    (post: any) => post.frontmatter?.title
+  )
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.ts)

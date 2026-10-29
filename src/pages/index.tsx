@@ -1,13 +1,9 @@
 import * as React from "react"
-import { graphql, PageProps, HeadFC } from "gatsby"
+import { Link, graphql, PageProps, HeadFC } from "gatsby"
 
-import ProfileCard from "../components/ProfileCard"
-import CategoryFilter from "../components/CategoryFilter"
-import PostCard from "../components/PostCard"
-import Sidebar from "../components/Sidebar"
+import Bio from "../components/Bio"
 import Layout from "../components/Layout"
 import Seo from "../components/Seo"
-import usePostFilter from "../hooks/usePostFilter"
 
 interface PageData {
   site: {
@@ -25,8 +21,6 @@ interface PageData {
         date?: string
         title?: string
         description?: string
-        tags?: string[]
-        featured?: boolean
       }
     }>
   }
@@ -34,79 +28,57 @@ interface PageData {
 
 const BlogIndex: React.FC<PageProps<PageData>> = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
-  const [activeCategory, setActiveCategory] = React.useState("전체")
-
-  const filteredPosts = usePostFilter(posts, activeCategory)
-
-  if (posts.length === 0) {
-    return (
-      <Layout location={location} title={siteTitle}>
-        <div className="home-hero">
-          <ProfileCard />
-        </div>
-        <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.ts).
-        </p>
-      </Layout>
-    )
-  }
+  // Skip empty drafts (no frontmatter title)
+  const posts = data.allMarkdownRemark.nodes.filter(
+    post => post.frontmatter?.title
+  )
 
   return (
     <Layout location={location} title={siteTitle}>
-      <div className="home-hero">
-        <ProfileCard />
-      </div>
+      <Bio />
+      <ol className="article-list">
+        {posts.map(post => {
+          const title = post.frontmatter.title || post.fields.slug
+          const date = post.frontmatter.date
 
-      <div className="home-layout">
-        <div className="home-main-content">
-          <CategoryFilter
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
-          />
-
-          <section className="latest-posts">
-            <ul className="post-list">
-              {filteredPosts.map(post => {
-                const title = post.frontmatter.title || post.fields.slug
-                const tags = post.frontmatter.tags || []
-
-                return (
-                  <PostCard
-                    key={post.fields.slug}
-                    slug={post.fields.slug}
-                    title={title}
-                    date={post.frontmatter.date || ""}
-                    description={post.frontmatter.description}
-                    excerpt={post.excerpt}
-                    tags={tags}
+          return (
+            <li key={post.fields.slug}>
+              <article
+                className="post-list-item"
+                itemScope
+                itemType="http://schema.org/Article"
+              >
+                <header className="article-list-item-header">
+                  <h2 className="article-list-item-title">
+                    <Link to={post.fields.slug} itemProp="url">
+                      <span itemProp="headline">
+                        {date ? `${date} ${title}` : title}
+                      </span>
+                    </Link>
+                  </h2>
+                </header>
+                <section className="article-list-item-description">
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: post.frontmatter.description || post.excerpt || "",
+                    }}
+                    itemProp="description"
                   />
-                )
-              })}
-            </ul>
-          </section>
-        </div>
-
-        <Sidebar
-          posts={posts}
-          activeCategory={activeCategory}
-          onCategoryClick={setActiveCategory}
-        />
-      </div>
+                </section>
+              </article>
+            </li>
+          )
+        })}
+      </ol>
     </Layout>
   )
 }
 
 export default BlogIndex
 
-/**
- * Head export to define metadata for the page
- *
- * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
- */
-export const Head: HeadFC<PageData> = () => <Seo title="All posts" />
+export const Head: HeadFC<PageData> = ({ data }) => (
+  <Seo title={data.site.siteMetadata?.title || "All posts"} />
+)
 
 export const pageQuery = graphql`
   {
@@ -128,8 +100,6 @@ export const pageQuery = graphql`
           date(formatString: "YYYY-MM-DD")
           title
           description
-          tags
-          featured
         }
       }
     }

@@ -6,8 +6,8 @@ const ThemeToggle: React.FC = () => {
   const [theme, setThemeState] = React.useState<"light" | "dark">("light")
 
   React.useEffect(() => {
-    const currentTheme = getTheme()
-    setThemeState(currentTheme as "light" | "dark")
+    const currentTheme = getTheme() as "light" | "dark"
+    setThemeState(currentTheme)
     document.documentElement.dataset.theme = currentTheme
   }, [])
 
@@ -19,15 +19,19 @@ const ThemeToggle: React.FC = () => {
 
   return (
     <button
+      type="button"
+      className="theme-switch"
       onClick={toggleTheme}
-      className="theme-toggle"
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-      title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      aria-pressed={theme === "dark"}
+      aria-label="Theme Switch"
     >
-      {theme === "light" ? "🌙" : "☀️"}
+      <div className="theme-switch-track" />
+      <div className="theme-switch-thumb-wrapper">
+        <div className="theme-switch-thumb" />
+        <div className="theme-switch-shadow" />
+      </div>
     </button>
   )
 }
 
 export default ThemeToggle
-
