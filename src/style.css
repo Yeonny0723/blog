@@ -12,17 +12,17 @@
   --text300: #495467;
   --text400: #2d3748;
   --text500: #1a202c;
-  --primary200: #bcb2f5;
+  --primary200: #c4dcc0;
   --yellow: #ffd75e;
   --yellow-accent: #ffa659;
 
   --bg: #fff;
   --border-gray: #ddd;
-  --border-primary: #bcb2f5;
-  --link: #3b1de2;
+  --border-primary: #c4dcc0;
+  --link: #3f7a4a;
   --inline-code-bg: #404040;
   --inline-code-color: #ffc7d2;
-  --header-circle: #bcb2f5;
+  --header-circle: #c4dcc0;
   --switch-bg: #495467;
   --tab-bg: #f6f6f6;
 
@@ -45,12 +45,12 @@
   --text300: #cfc8bc;
   --text400: #e5dfd6;
   --text500: #f6f1ea;
-  --primary200: #b9acff;
+  --primary200: #9cc59a;
 
   --bg: #222425;
   --border-gray: #3d4144;
-  --border-primary: #b9acff;
-  --link: #b9acff;
+  --border-primary: #9cc59a;
+  --link: #9cc59a;
   --header-circle: #3d4144;
   --switch-bg: #cfc8bc;
   --tab-bg: #3d4144;
@@ -705,4 +705,7 @@ code[class*="language-html"] { color: #d4d4d4; }
   color: var(--text200);
   font-size: 0.875rem;
 }
-.about-page li { line-height: 1.625; }
+.about-page p,
+.about-page li { line-height: 1.85; }
+.about-page li { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+.about-page p { margin-top: 1rem; margin-bottom: 1rem; }
